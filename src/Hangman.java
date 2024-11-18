@@ -114,7 +114,7 @@ public class Hangman {
         }
     }
 
-    // Метод ввода символа
+    // Метод ввода буквы
     public static char inputLetter() {
         Scanner sc = new Scanner(System.in);
         String letter;
