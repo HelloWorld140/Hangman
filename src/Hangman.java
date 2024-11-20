@@ -26,6 +26,7 @@ public class Hangman {
         int count = 0;
         //Печать рисунка
         printResult(checkFile(count));
+        // Создание скрытого слова
         for (int i = 0; i < word.size(); i++) {
             hiddenWord.add('□');
         }
@@ -37,15 +38,9 @@ public class Hangman {
         for (char x : hiddenWord)
             System.out.print(x);
         System.out.println();
-        // Цикл работы программы
+        // Игровой цикл
         while (count != 6 && !hiddenWord.equals(word)) {
             char letter = inputLetter();
-            // Проверка введеной буквы с загаданным словом и открытие буквы.
-            for (int i = 0; i < hiddenWord.size(); i++) {
-                if (word.get(i) == letter) {
-                    hiddenWord.set(i, letter);
-                }
-            }
             // Проверка и запись уже введеных букв
             if (!inputWord.contains(letter)) {
                 inputWord.add(letter);
@@ -54,6 +49,12 @@ public class Hangman {
                 continue;
             }
             System.out.println();
+            // Проверка введеной буквы с загаданным словом и открытие буквы.
+            for (int i = 0; i < hiddenWord.size(); i++) {
+                if (word.get(i) == letter) {
+                    hiddenWord.set(i, letter);
+                }
+            }
             // Проверка введеной буквы для счетчика ошибок
             if (!hiddenWord.contains(letter)) {
                 count++;
@@ -121,10 +122,11 @@ public class Hangman {
         while (true) {
             System.out.println("Введите букву");
             letter = sc.nextLine().toLowerCase();
-            if (letter.length() > 1 || letter.isEmpty()
-                    || !Character.UnicodeBlock.of(letter.charAt(0)).equals(Character.UnicodeBlock.CYRILLIC)) {
-                System.out.println("Вам сказали ввести 1 букву!");
-            } else {
+            if (letter.length() != 1)
+                System.out.println("Вы ввели больше 1й буквы. Введите 1 русскую букву.");
+            else if (!Character.UnicodeBlock.of(letter.charAt(0)).equals(Character.UnicodeBlock.CYRILLIC))
+                System.out.println("Вы ввели не русскую букву! Введите 1 русскую букву");
+             else {
                 return letter.charAt(0);
             }
         }
