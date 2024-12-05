@@ -27,7 +27,7 @@ public class Hangman {
     private static final int HARD = 4;
     private static int difficulty;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         createListOfAllWords();
         mainGameLoop();
     }
@@ -50,25 +50,22 @@ public class Hangman {
             choiceDifficultyInput();
             takeRandomWord();
             createHiddenWord();
-            printHangman();
-            printHiddenWord();
-            printCounterOfMistakes();
             // Печать загаданного слова для проверки работы
             System.out.println(WORD);
-
             while (counterOfMistakes != Math.ceil((double) MAX_COUNT_OF_MISTAKES/difficulty) && !HIDDEN_WORD.equals(WORD)) {
+                printHangman();
+                printHiddenWord();
+                printInputLetter();
+                printCounterOfMistakes();
                 letterAsChar = inputLetter();
                 if (!checkAlreadyInputLetter(letterAsChar)) {
                     System.out.println("Вы уже вводили эту букву!");
                     continue;
                 }
                 if (!checkInputLetterInWord(letterAsChar)) {
+                    System.out.println("Вы не угадали букву!");
                     counterOfMistakes++;
-                }
-                printHangman();
-                printHiddenWord();
-                printInputLetter();
-                printCounterOfMistakes();
+                }else System.out.println("Вы угадали букву!");
             }
             printResultOfGame();
             refreshGame();
@@ -197,14 +194,19 @@ public class Hangman {
         } else return false;
     }
     public static void printInputLetter() {
-        System.out.println("Ранее введеные буквы: " + INPUT_LETTERS);
+        System.out.println("\nРанее введеные буквы: " + INPUT_LETTERS);
     }
     public static void printResultOfGame() {
         if (counterOfMistakes == Math.ceil((double) MAX_COUNT_OF_MISTAKES / difficulty)) {
+            printHangman();
             System.out.print("Вы проиграли :( \nЗагаданное слово: ");
-            System.out.println(WORD);
+            printWord();
             //Выводим если игрок победил
         } else System.out.println("Поздравлю, вы победили!");
+    }
+    public static void printWord(){
+        for (char letter : WORD)
+            System.out.print(letter + " ");
     }
     public static void refreshGame() {
         WORD.clear();
