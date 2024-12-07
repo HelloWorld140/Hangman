@@ -53,8 +53,7 @@ public enum Mistakes {
                     |    o
                     |   /0\\
                     |   / \\
-                    |
-                        YOU DEAD!\
+                    |\
             """),
     ZERO_MISTAKE_HARD_DIFFICULT("""
                     ＿＿＿＿
@@ -94,8 +93,7 @@ public enum Mistakes {
                     |    o
                     |   /0\\
                     |   / \\
-                    |
-                        YOU DEAD!\
+                    |\
             """),
     ZERO_MISTAKE_EASY_DIFFICULT("""
                          
@@ -167,8 +165,7 @@ public enum Mistakes {
                     |    o
                     |   /0\\
                     |   / \\
-                    |
-                        YOU DEAD!\
+                    |\
             """);
     Mistakes (String hangman) {
         this.hangman = hangman;
